@@ -1,0 +1,41 @@
+server:
+  port: 18080
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+#      routes:
+#        - id: myrouter1
+#          uri: lb://myprovider
+#          # 断言支持：Path, Query, Method, Host, Cookie
+#          predicates:
+#            - Path=/w/**
+#          filters:
+#            # 截取uri第一个元素：如截取 path中 /w
+#            - StripPrefix=1
+      # 灰度
+      routes:
+        - id: weight_95
+          uri: lb://myprovider95
+          # 断言支持：Path, Query, Method, Host, Cookie
+          predicates:
+            - Path=/w/**
+            - Weight=group1,95
+          filters:
+            # 截取uri第一个元素：如截取 path中 /w
+            - StripPrefix=1
+        - id: weight_5
+          uri: lb://myprovider5
+          # 断言支持：Path, Query, Method, Host, Cookie
+          predicates:
+            - Path=/w/**
+            - Weight=group1,5
+          filters:
+            # 截取uri第一个元素：如截取 path中 /w
+            - StripPrefix=1
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
