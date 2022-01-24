@@ -36,6 +36,14 @@ spring:
           filters:
             # 截取uri第一个元素：如截取 path中 /w
             - StripPrefix=1
+        - id: myws
+          uri: lb://ws://wsdemo
+          # 断言支持：Path, Query, Method, Host, Cookie
+          predicates:
+            - Path=/ws/**
+          filters:
+            # 截取uri第一个元素：如截取 path中 /w
+            - StripPrefix=1
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
