@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Ben Li.
  * @date 2022/1/27
  */
-@Configuration
+//@Configuration
 public class RibbonConfiguration {
 
     @Bean
